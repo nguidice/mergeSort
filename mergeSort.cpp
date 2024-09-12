@@ -67,8 +67,26 @@ void mergeSort(vector<int>& arr, int left, int right){
     merge(arr,left,mid,right);
 }
 
-void print(vector<int>& arr){
+void print(const vector<int>& arr){
+    //Iterate Over The Entire Array And Print
+    cout << "Sorted Array:" << endl;
     for (int i = 0; i < arr.size(); i++){
+        cout << arr[i] << " " << endl;
+    }
+}
+
+void printArg(const vector<int>& arr,int start, int end){
+    //Exception Handling 
+     if (start < 0 || end >= arr.size() || start > end) {
+        throw out_of_range("Index out of range");
+    }
+    //Print The Range Size Specified By The Arguments
+    //cout << endl;
+    cout << "Range Size:" << (end - start) + 1 << endl; 
+
+    //Iterate Over The Entire Array And Print
+    cout << "Sorted Array:" << endl;
+    for (int i = start; i <= end; i++){
         cout << arr[i] << " " << endl;
     }
 }
@@ -86,18 +104,30 @@ int main(int argc, char* argv[]) {
         cin >> valArr[i];
     }
 
-    //Print The Total Amount Of Numbers
-    cout << endl;
-    cout << "Total Numbers:" << endl; 
-    cout << arrNum << endl;
 
     //Call mergeSort Function
     mergeSort(valArr,0,arrNum - 1);
 
-    cout << "Sorted Array:" << endl;
+    //Check That There Are No Range Requierments
+    if (argc != 3){
+    //Print The Total Amount Of Numbers
+    //cout << endl;
+    cout << "Total Numbers:" << endl; 
+    cout << arrNum << endl;
 
-    //Call Print Funciton
+    //Call Print Function
     print(valArr);
+    }
+
+    //If There Are Range Requierments
+    if (argc == 3){
+        //Read In Command Line Arguments
+        int start = stoi(argv[1]);
+        int end = stoi (argv[2]);
+
+        //Call printArg Function
+        printArg(valArr,start,end);
+    }
 
     // End Main
     return 0;
